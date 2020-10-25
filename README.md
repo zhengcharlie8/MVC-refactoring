@@ -1,4 +1,4 @@
-# ThreeInARow
+# What is this project
 Basic Java Implementation of a simple game to utilize MVC architecture and observer design pattern
 
 ### How to build and test (from Terminal):
