@@ -1,9 +1,26 @@
 package model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+import controller.RowGameController;
+import view.RowGameGUI;
 
 public class RowGameModel 
 {
     public static final String GAME_END_NOWINNER = "Game ends in a draw";
+    private RowGameController controller;
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    public RowGameGUI gameView;
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        this.pcs.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        this.pcs.removePropertyChangeListener(listener);
+    }
+
 
     private RowBlockModel[][] blocksData = new RowBlockModel[3][3];
 
@@ -20,6 +37,7 @@ public class RowGameModel
     	if(x-1 > -1 && blocksData[x-1][y].getContents().equals("")) {
     		this.setLegality(x-1, y, true);
     	}
+    	this.pcs.firePropertyChange("block", 1, 2);
     }
     public boolean getIsLegalMove(int x, int y) {
     	return blocksData[x][y].getIsLegalMove();
@@ -29,6 +47,7 @@ public class RowGameModel
     }
     public void setLegality(int x, int y,boolean val) {
     	blocksData[x][y].setIsLegalMove(val);
+    	this.pcs.firePropertyChange("block", 1, 2);
     }
     public int getBlock(int x, int y) {
     	if(blocksData[x][y].getContents().equals(""))
@@ -41,9 +60,11 @@ public class RowGameModel
     
     public void setPlayer(int player) {
     	this.player = player;
+    	this.pcs.firePropertyChange("block", 1, 2);
     }    
     public void setMovesLeft(int moves) {
     	movesLeft = moves;
+    	this.pcs.firePropertyChange("block", 1, 2);
     }
     public int getMovesLeft() {
     	return movesLeft;
@@ -89,14 +110,16 @@ public class RowGameModel
     private String finalResult = null;
 
 
-    public RowGameModel() {
+    public RowGameModel(RowGameController controller) {
 	super();
+	this.controller = controller;
+	gameView = new RowGameGUI(controller,this);
 
 	for (int row = 0; row < 3; row++) {
 	    for (int col = 0; col < 3; col++) {
 		blocksData[row][col] = new RowBlockModel(this);
-	    } // end for col
-	} // end for row
+	    }
+	}
     }
 
     public String getFinalResult() {

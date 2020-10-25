@@ -5,12 +5,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import model.RowGameModel;
 import controller.RowGameController;
 
 
-public class RowGameGUI implements RowGameView
+public class RowGameGUI implements RowGameView,PropertyChangeListener
 {
     public JFrame gui = new JFrame("Three in a Row");
     public RowGameBoardView gameBoardView;
@@ -18,13 +20,16 @@ public class RowGameGUI implements RowGameView
     public RowGameStatusView gameStatusView;
     
     private RowGameController gameController;
+    private RowGameModel model;
 
 
     /**
      * Creates a new game initializing the GUI.
      */
-    public RowGameGUI(RowGameController gameController) {
+    public RowGameGUI(RowGameController gameController, RowGameModel model) {
 	this.gameController = gameController;
+	this.model = model;
+	model.addPropertyChangeListener(this);
 	
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.setSize(new Dimension(500, 350));
@@ -50,7 +55,7 @@ public class RowGameGUI implements RowGameView
         });
     }
 
-    /**
+	/**
      * Updates the game view after the game model
      * changes state.
      *
@@ -61,4 +66,9 @@ public class RowGameGUI implements RowGameView
 
 	gameStatusView.update(gameModel);
     }
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		this.update(model);
+	}
 }

@@ -1,6 +1,9 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import controller.RowGameController;
+
 import static org.junit.Assert.*;
 
 import model.RowBlockModel;
@@ -15,7 +18,8 @@ public class TestExample {
 
     @Before
     public void setUp() {
-	gameModel = new RowGameModel();
+    RowGameController controller = new RowGameController();
+	gameModel = new RowGameModel(controller);
     }
 
     @After
