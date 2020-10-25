@@ -224,7 +224,7 @@ public class RowGameController {
 	    if(block==gameView.gameBoardView.blocks[0][0]) {
 		gameModel.blocksData[0][0].setContents("O");
 		gameModel.blocksData[0][0].setIsLegalMove(false);
-		gameModel.setPlayer(2);
+		gameModel.setPlayer(1);
 		if(movesLeft<7) {
 		    if((gameModel.blocksData[0][0].getContents().equals(gameModel.blocksData[0][1].getContents()) &&
 			gameModel.blocksData[0][1].getContents().equals(gameModel.blocksData[0][2].getContents())) ||
@@ -241,7 +241,7 @@ public class RowGameController {
 	    } else if(block==gameView.gameBoardView.blocks[0][1]) {
 		gameModel.blocksData[0][1].setContents("O");
 		gameModel.blocksData[0][1].setIsLegalMove(false);
-		gameModel.setPlayer(2);
+		gameModel.setPlayer(1);
 		if(movesLeft<7) {
 		    if((gameModel.blocksData[0][1].getContents().equals(gameModel.blocksData[0][0].getContents()) &&
 			gameModel.blocksData[0][0].getContents().equals(gameModel.blocksData[0][2].getContents())) ||
@@ -256,7 +256,7 @@ public class RowGameController {
 	    } else if(block==gameView.gameBoardView.blocks[0][2]) {
 		gameModel.blocksData[0][2].setContents("O");
 		gameModel.blocksData[0][2].setIsLegalMove(false);
-		gameModel.setPlayer(2);
+		gameModel.setPlayer(1);
 		if(movesLeft<7) {
 		    if((gameModel.blocksData[0][2].getContents().equals(gameModel.blocksData[0][1].getContents()) &&
 			gameModel.blocksData[0][1].getContents().equals(gameModel.blocksData[0][0].getContents())) ||
@@ -275,7 +275,7 @@ public class RowGameController {
 		gameModel.blocksData[1][0].setIsLegalMove(false);
 		// Enable the space on top of this one
 		gameModel.blocksData[0][0].setIsLegalMove(true);
-		gameModel.setPlayer(2);
+		gameModel.setPlayer(1);
 		if(movesLeft<7) {
 		    if((gameModel.blocksData[1][0].getContents().equals(gameModel.blocksData[1][1].getContents()) &&
 			gameModel.blocksData[1][1].getContents().equals(gameModel.blocksData[1][2].getContents())) ||
@@ -292,7 +292,7 @@ public class RowGameController {
 		gameModel.blocksData[1][1].setIsLegalMove(false);
 		// Enable the space on top of this one
 		gameModel.blocksData[0][1].setIsLegalMove(true);
-		gameModel.setPlayer(2);
+		gameModel.setPlayer(1);
 		if(movesLeft<7) {
 		    if((gameModel.blocksData[1][1].getContents().equals(gameModel.blocksData[1][0].getContents()) &&
 			gameModel.blocksData[1][0].getContents().equals(gameModel.blocksData[1][2].getContents())) ||
@@ -313,7 +313,7 @@ public class RowGameController {
 		gameModel.blocksData[1][2].setIsLegalMove(false);
 		// Enable the space on top of this one
 		gameModel.blocksData[0][2].setIsLegalMove(true);
-		gameModel.setPlayer(2);
+		gameModel.setPlayer(1);
 		if(movesLeft<7) {
 		    if((gameModel.blocksData[1][2].getContents().equals(gameModel.blocksData[0][2].getContents()) &&
 			gameModel.blocksData[0][2].getContents().equals(gameModel.blocksData[2][2].getContents())) ||
@@ -330,7 +330,7 @@ public class RowGameController {
 		gameModel.blocksData[2][0].setIsLegalMove(false);
 		// Enable the space on top of this one
 		gameModel.blocksData[1][0].setIsLegalMove(true);
-		gameModel.setPlayer(2);
+		gameModel.setPlayer(1);
 		if(movesLeft<7) {
 		    if((gameModel.blocksData[2][0].getContents().equals(gameModel.blocksData[2][1].getContents()) &&
 			gameModel.blocksData[2][1].getContents().equals(gameModel.blocksData[2][2].getContents())) ||
@@ -349,7 +349,7 @@ public class RowGameController {
 		gameModel.blocksData[2][1].setIsLegalMove(false);
 		// Enable the space on top of this one
 		gameModel.blocksData[1][1].setIsLegalMove(true);
-		gameModel.setPlayer(2);
+		gameModel.setPlayer(1);
 		if(movesLeft<7) {
 		    if((gameModel.blocksData[2][1].getContents().equals(gameModel.blocksData[2][0].getContents()) &&
 			gameModel.blocksData[2][0].getContents().equals(gameModel.blocksData[2][2].getContents())) ||
@@ -366,7 +366,7 @@ public class RowGameController {
 		gameModel.blocksData[2][2].setIsLegalMove(false);
 		// Enable the space on top of this one
 		gameModel.blocksData[1][2].setIsLegalMove(true);
-		gameModel.setPlayer(2);
+		gameModel.setPlayer(1);
 		if(movesLeft<7) {
 		    if((gameModel.blocksData[2][2].getContents().equals(gameModel.blocksData[2][1].getContents()) &&
 			gameModel.blocksData[2][1].getContents().equals(gameModel.blocksData[2][0].getContents())) ||
@@ -410,7 +410,7 @@ public class RowGameController {
 	        gameModel.blocksData[row][column].setIsLegalMove(row == 2);
             }
         }
-	gameModel.setPlayer(2);	
+	gameModel.setPlayer(1);	
 	gameModel.setMovesLeft(9);
 	gameModel.setFinalResult(null);
 
