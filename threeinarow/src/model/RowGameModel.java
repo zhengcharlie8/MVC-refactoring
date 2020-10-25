@@ -10,12 +10,19 @@ public class RowGameModel
     /**
      * The current player taking their turn
      */
-    private String player = "1";
+    private int player = 1;
     private int movesLeft = 9;
     
     
-    public String getPlayerTurn(){
+    public int getPlayer(){
     	return player;
+    }
+    
+    public void setPlayer(int player) {
+    	this.player = player;
+    }    
+    public void setMovesLeft(int moves) {
+    	movesLeft = moves;
     }
     public int getMovesLeft() {
     	return movesLeft;
