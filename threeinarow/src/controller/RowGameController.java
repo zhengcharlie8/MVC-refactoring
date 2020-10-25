@@ -47,6 +47,9 @@ public class RowGameController {
 	gameView.gui.setVisible(true);
     }
 
+    
+    
+    //V3 no longer valid.
     /**
      * Moves the current player into the given block.
      *
