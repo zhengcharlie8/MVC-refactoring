@@ -1,14 +1,6 @@
 package controller;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JPanel;
-import java.awt.*;
-import java.awt.event.*;
-
 import model.RowGameModel;
-import view.RowGameGUI;
 
 
 /**
@@ -18,7 +10,7 @@ import view.RowGameGUI;
  * principles and needs a thorough overhaul to improve readability,
  * extensibility, and testability.
  */
-public class RowGameController {
+public abstract class RowGameController implements RowGameRulesStrategy{
     public static final String GAME_END_NOWINNER = "Game ends in a draw";
 
     public RowGameModel gameModel;
@@ -27,7 +19,7 @@ public class RowGameController {
      */
     public RowGameController() {
 	gameModel = new RowGameModel(this);	
-	resetGame();
+	reset();
     }
 
     public RowGameModel getModel() {
@@ -44,218 +36,210 @@ public class RowGameController {
      *
      * @param block The block to be moved to by the current player
      */
-    public void move(JButton block) {
-	gameModel.setMovesLeft(gameModel.getMovesLeft() - 1);
-
+    public void move(int row, int column) {
 	int player = gameModel.getPlayer();
 	int movesLeft = gameModel.getMovesLeft();
 	if(player == 1) {
 	    // Check whether player 1 won
-	    if(block==gameModel.gameView.gameBoardView.blocks[0][0]) {
+	    if(row == 0 && column == 0) {
 		gameModel.setBlock(0,0,player);
-		gameModel.setPlayer(2);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)){
-			gameModel.setFinalResult("Player 1 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 1 wins!");
+				endGame();
+			}
+		    } else if(isTie())
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
 		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[0][1]) {
+	else if(row == 0 && column == 1) {
 		gameModel.setBlock(0,1,player);
-		gameModel.setPlayer(2);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)){
-			gameModel.setFinalResult("Player 1 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 1 wins!");
+				endGame();
+			}
+		    } else if(isTie())
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
 		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[0][2]) {
+	    else if(row == 0 && column == 2) {
 		gameModel.setBlock(0,2,player);
-		gameModel.setPlayer(2);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)){
-			gameModel.setFinalResult("Player 1 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 1 wins!");
+				endGame();
+			}
+		    } else if(isTie())
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
 		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[1][0]) {
+	     else if(row == 1 && column == 0) {
 		gameModel.setBlock(1,0,player);
-		gameModel.setPlayer(2);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)) {
-			gameModel.setFinalResult("Player 1 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 1 wins!");
+				endGame();
+			}
+		    } else if(isTie())
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
 		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[1][1]) {
+	     else if(row == 1 && column == 1) {
 			gameModel.setBlock(1,1,player);
-		gameModel.setPlayer(2);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)){
-			gameModel.setFinalResult("Player 1 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 1 wins!");
+				endGame();
+			}
+		    } else if(isTie())
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
-		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[1][2]) {
+		
+	    } else if(row == 1 && column == 2) {
 			gameModel.setBlock(1,2,player);
-		gameModel.setPlayer(2);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)) {
-			gameModel.setFinalResult("Player 1 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 1 wins!");
+				endGame();
+			}
+		    } else if(isTie())
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
-		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[2][0]) {
+		
+	    } else if(row == 2 && column == 0) {
 			gameModel.setBlock(2,0,player);
-		gameModel.setPlayer(2);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)){
-			gameModel.setFinalResult("Player 1 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
-		       gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
-		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[2][1]) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 1 wins!");
+				endGame();
+			}
+		    } else if(isTie())
+			gameModel.setFinalResult(GAME_END_NOWINNER);
+		
+	    } else if(row == 2 && column == 1) {
 			gameModel.setBlock(2,1,player);
-		gameModel.setPlayer(2);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)){
-		        gameModel.setFinalResult("Player 1 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 1 wins!");
+				endGame();
+			}
+		    } else if(isTie())
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
 		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[2][2]) {
+	    else if(row == 2 && column == 2) {
 			gameModel.setBlock(2,2,player);
-		gameModel.setPlayer(2);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)) {
-			gameModel.setFinalResult("Player 1 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 1 wins!");
+				endGame();
+			}
+		    } else if(isTie())
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
 		}
-	    }
-	} else {
+	}
+	else {
 		player = 2;
 	    // Check whether player 2 won
-	    if(block==gameModel.gameView.gameBoardView.blocks[0][0]) {
+	    if(row == 0 && column == 0) {
 			gameModel.setBlock(0,0,player);
-		gameModel.setPlayer(1);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)){
-			gameModel.setFinalResult("Player 2 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 2 wins!");
+				endGame();
+			}
+		    } else if(isTie()) {
 			gameModel.setFinalResult(GAME_END_NOWINNER);
 		    }
 		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[0][1]) {
+	    else if(row == 0 && column == 1) {
 			gameModel.setBlock(0,1,player);
-		gameModel.setPlayer(1);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)){
-			gameModel.setFinalResult("Player 2 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 2 wins!");
+				endGame();
+			}
+		    } else if(isTie()) {
 			gameModel.setFinalResult(GAME_END_NOWINNER);
 		    }
 		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[0][2]) {
+	    else if(row == 0 && column == 2) {
 			gameModel.setBlock(0,2,player);
-		gameModel.setPlayer(1);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)){
-			gameModel.setFinalResult("Player 2 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 2 wins!");
+				endGame();
+			}
+		    } else if(isTie()) {
 			gameModel.setFinalResult(GAME_END_NOWINNER);
 		    }
-		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[1][0]) {
+		}else if(row == 1 && column == 0) {
 			gameModel.setBlock(1,0,player);
-		gameModel.setPlayer(1);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)) {
-			gameModel.setFinalResult("Player 2 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 2 wins!");
+				endGame();
+			}
+		    } else if(isTie()) {
 			gameModel.setFinalResult(GAME_END_NOWINNER);
 		    }
-		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[1][1]) {
+		}else if(row == 1 && column == 1) {
 			gameModel.setBlock(1,1,player);
-		gameModel.setPlayer(1);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)) {
-			gameModel.setFinalResult("Player 2 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 2 wins!");
+				endGame();
+			}
+		    } else if(isTie()) 
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
 		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[1][2]) {
+	    else if(row == 1 && column == 2) {
 			gameModel.setBlock(1,2,player);
-		gameModel.setPlayer(1);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)) {
-			gameModel.setFinalResult("Player 2 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 2 wins!");
+				endGame();
+			}
+		    } else if(isTie())
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
 		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[2][0]) {
+	    else if(row == 2 && column == 0) {
 			gameModel.setBlock(2,0,player);
-		gameModel.setPlayer(1);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)) {
-			gameModel.setFinalResult("Player 2 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 2 wins!");
+				endGame();
+			}
+		    } else if(isTie())
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
 		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[2][1]) {
+	     else if(row == 2 && column == 1) {
 			gameModel.setBlock(2,1,player);
-		gameModel.setPlayer(1);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)) {
-			gameModel.setFinalResult("Player 2 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 2 wins!");
+				endGame();
+			}
+		    } else if(isTie())
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
-		}
-	    } else if(block==gameModel.gameView.gameBoardView.blocks[2][2]) {
+		}else if(row == 2 && column == 2) {
 			gameModel.setBlock(2,2,player);
-		gameModel.setPlayer(1);
 		if(movesLeft<7) {
-		    if(gameModel.checkIsOver(player)) {
-			gameModel.setFinalResult("Player 2 wins!");
-			endGame();
-		    } else if(movesLeft==0) {
+			if(isWin()) {
+				gameModel.setFinalResult("Player 2 wins!");
+				endGame();
+			}
+		    } else if(isTie())
 			gameModel.setFinalResult(GAME_END_NOWINNER);
-		    }
 		}
-	    }
 	}
+	if (player == 1)
+		gameModel.setPlayer(2);
+	else
+		gameModel.setPlayer(1);
     }
+
+public boolean isWin() {
+	return gameModel.checkIsOver(gameModel.getPlayer());
+}
+
+public boolean isTie() {
+	return gameModel.getMovesLeft()==0;
+}
 
     /**
      * Ends the game disallowing further player turns.
@@ -271,16 +255,5 @@ public class RowGameController {
     /**
      * Resets the game to be able to start playing again.
      */
-    public void resetGame() {
-        for(int row = 0;row<3;row++) {
-            for(int column = 0;column<3;column++) {
-                gameModel.resetBlock(row,column);
-		// Enable the bottom row
-	        gameModel.setLegality(row,column,true);
-            }
-        }
-	gameModel.setPlayer(1);	
-	gameModel.setMovesLeft(9);
-	gameModel.setFinalResult(null);
-    }
+    public abstract void reset();
 }

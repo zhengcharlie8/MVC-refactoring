@@ -50,7 +50,7 @@ public class RowGameGUI implements RowGameView,PropertyChangeListener
 
         reset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                gameController.resetGame();
+                gameController.reset();
             }
         });
     }

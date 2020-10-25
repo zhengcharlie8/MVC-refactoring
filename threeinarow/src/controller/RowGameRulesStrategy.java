@@ -5,11 +5,11 @@ import model.RowGameModel;
 
 public interface RowGameRulesStrategy
 {
-    public void reset(RowGameModel gameModel);
+    public void reset();
 
-    public void move(RowGameModel gameModel, int row, int col);
+    public void move(int row, int col);
 
-    public boolean isWin(RowGameModel gameModel);
+    public boolean isWin();
 
-    public boolean isTie(RowGameModel gameModel);
+    public boolean isTie();
 }

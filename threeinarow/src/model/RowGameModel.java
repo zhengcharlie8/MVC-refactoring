@@ -32,7 +32,12 @@ public class RowGameModel
     
     
     public void setBlock(int x, int y, int player) {
+    	if(getIsLegalMove(x,y)) {
     	blocksData[x][y].setContents(Integer.toString(player));
+    	movesLeft--;
+    	}
+    	else
+    		return;
     	this.setLegality(x,y,false);
     	if(x-1 > -1 && blocksData[x-1][y].getContents().equals("")) {
     		this.setLegality(x-1, y, true);
@@ -128,5 +133,6 @@ public class RowGameModel
 
     public void setFinalResult(String finalResult) {
 	this.finalResult = finalResult;
+	this.pcs.firePropertyChange("block", 1, 2);
     }
 }

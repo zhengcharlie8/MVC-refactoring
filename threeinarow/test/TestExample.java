@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import controller.RowGameController;
+import controller.TicTacToe;
 
 import static org.junit.Assert.*;
 
@@ -18,7 +19,7 @@ public class TestExample {
 
     @Before
     public void setUp() {
-    RowGameController controller = new RowGameController();
+    RowGameController controller = new TicTacToe();
 	gameModel = new RowGameModel(controller);
     }
 
